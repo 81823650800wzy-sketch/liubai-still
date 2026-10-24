@@ -1,0 +1,36 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#eeede7"><meta name="description" content="留一点时间，给慢慢生长的自己。留白 STILL，收藏学习与灵感的时间胶囊。">
+  <title>留白 STILL — 学习时间胶囊</title>
+  <link rel="stylesheet" href="style.css"><link rel="stylesheet" href="shelf.css">
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='12' fill='%23edeee8'/%3E%3Ctext x='19' y='47' font-size='43' fill='%2353634c'%3EⅡ%3C/text%3E%3C/svg%3E">
+</head>
+<body class="minimal">
+<header class="topbar">
+  <a class="brand" href="#" aria-label="留白首页"><span class="brand-symbol">Ⅱ</span><span>留白 <b>STILL</b></span></a>
+  <nav aria-label="主导航"><button class="nav active" data-view="all">书架</button><button class="nav" data-view="future">未来</button><button class="nav" id="nav-focus">专注</button></nav>
+  <button class="add-capsule" id="create-button" aria-label="封存新胶囊" title="封存新胶囊">＋</button>
+</header>
+<main>
+  <section class="library" aria-label="时间胶囊书架">
+    <div class="library-toolbar"><div class="filters" role="group" aria-label="筛选胶囊"><button class="filter active" data-filter="all">全部</button><button class="filter" data-filter="reading">阅读</button><button class="filter" data-filter="skill">技能</button><button class="filter" data-filter="inspiration">灵感</button><button class="filter" data-filter="life">生活</button></div><button id="about-button" class="quiet-button" aria-label="记录与备份">···</button></div>
+    <div class="shelf-stage" id="shelf-stage" tabindex="0" aria-label="三维书架，滚轮或拖动浏览，左右方向键选择，回车打开">
+      <div id="scene" aria-hidden="true"></div>
+      <div class="shelf" id="shelf" aria-label="胶囊列表"></div>
+      <p id="empty-state" hidden>这里，还留着空白。</p>
+    </div>
+    <div class="book-caption"><div><span id="active-category">阅读</span><button id="active-title" aria-label="打开选中的胶囊">在留白处生长</button></div><span id="active-date">2026.01.12</span></div>
+    <div class="shelf-bottom"><span class="interaction-hint">滚动探索 <i>·</i> 点击翻阅</span><div class="shelf-position"><button id="prev-book" aria-label="上一本">←</button><span id="position">01</span><div id="progress-track"><i id="progress-thumb"></i></div><span id="total-position">06</span><button id="next-book" aria-label="下一本">→</button></div><button id="storage-info" class="quiet-button" aria-label="本地记录与备份">本地收藏 <i class="dot"></i></button></div>
+  </section>
+</main>
+<div hidden><span id="capsule-count"></span><span id="all-count"></span><span id="shelf-title"></span><span id="today-date"></span><button id="start-focus"></button></div>
+<dialog id="capsule-dialog"><form id="capsule-form"><div class="modal-top"><span class="eyebrow">A LETTER TO YOUR FUTURE SELF</span><button type="button" class="close" data-close aria-label="关闭">×</button></div><h2>把这一刻，交给时间。</h2><p class="modal-lead">收藏一点收获，也为未来留一句话。</p><label>胶囊标题<input name="title" required maxlength="36" placeholder="例如：终于读懂了设计中的留白"></label><div class="form-row"><label>归入书架<select name="category"><option value="reading">阅读</option><option value="skill">技能</option><option value="inspiration">灵感</option><option value="life">生活</option></select></label><label>开启日期<input name="date" type="date" required></label></div><label>写给未来的自己<textarea name="message" required maxlength="4000" rows="5" placeholder="今天学到了什么？你希望未来的自己记住什么？"></textarea></label><p class="form-note">记录保存在当前浏览器。到达开启日期后可以阅读正文。</p><button type="submit" class="primary full">封存这份微光 <span>↗</span></button></form></dialog>
+<dialog id="detail-dialog"><div class="modal-top"><span class="eyebrow" id="detail-number"></span><button class="close" data-close aria-label="关闭">×</button></div><div id="detail-content"></div></dialog>
+<dialog id="focus-dialog"><div class="modal-top"><span class="eyebrow">MAKE ROOM FOR ONE THING</span><button class="close" data-close aria-label="关闭">×</button></div><h2>此刻，只做一件事。</h2><input id="focus-task" maxlength="80" aria-label="专注任务" placeholder="你想专注于什么？"><div class="timer" id="timer" role="timer">25:00</div><p id="timer-note">深呼吸。属于你的时间，现在开始。</p><div class="timer-actions"><button class="primary" id="toggle-timer">开始专注</button><button class="secondary" id="reset-timer">重新开始</button></div><p class="form-note">计时会在关闭面板后继续；以实际经过时间计算。</p></dialog>
+<dialog id="info-dialog"><div class="modal-top"><span class="eyebrow">A QUIET LITTLE PLACE</span><button class="close" data-close aria-label="关闭">×</button></div><h2>给成长，留一点空间。</h2><p class="info-text">留白是一个学习时间胶囊 Demo。书架中的初始档案是示例内容；你创建的胶囊和专注记录保存在当前浏览器，不会跨设备同步。</p><p class="info-text">日期锁用于日常仪式感，不属于加密保险箱。你可以导出备份，在另一台设备通过导入恢复。</p><div class="timer-actions"><button class="primary" id="export-data">导出我的记录 ↗</button><button class="secondary" id="import-data">导入备份</button><input id="import-file" type="file" accept="application/json" hidden></div><p class="form-note" id="focus-stats"></p></dialog>
+<div id="toast" role="status" aria-live="polite"></div>
+<script src="app.js"></script>
+<script type="module" src="shelf3d.js"></script>
+</body></html>
